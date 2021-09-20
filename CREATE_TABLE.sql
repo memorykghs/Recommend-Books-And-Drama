@@ -45,21 +45,20 @@ create table Ashley.ITEM_INFO (
     RECOMMEND float(2,1) comment '推薦度',
     UPD_ID varchar(20) comment '更新人員',
     UPD_TIME timestamp comment '更新時間', 
-    primary key (ITEM_ID, TAG),
-    foreign key (AUTHOR_ID) references AUTHOR_INFO(AUTHOR_ID),
-    foreign key (TYPE) references TYPE_INFO(TYPE_ID),
-    foreign key (CATEGORY) references CATEGORY_INFO(CATEGORY_ID)
+    primary key (ITEM_ID, TAG)
+    -- foreign key (AUTHOR_ID) references AUTHOR_INFO(AUTHOR_ID),
+    -- foreign key (TYPE) references TYPE_INFO(TYPE_ID),
+    -- foreign key (CATEGORY) references CATEGORY_INFO(CATEGORY_ID)
 ) engine=InnoDB default charset=utf8;
 
 create table Ashley.ITEM_COMMENT (
 	UPD_TIME timestamp not null comment '更新時間',
     USER_ID  nvarchar(50) not null comment '使用者ID',
     ITEM_ID varchar(12) not null comment '書籍ID',
-    COMMENT nvarchar(1000) not null comment '留言',
-    primary key (UPD_TIME),
-    primary key (USER_ID),
-    foreign key (USER_ID) references USER_INFO(USER_ID),
-    foreign key (ITEM_ID) references ITEM_INFO(ITEM_ID)
+    COMMENTS nvarchar(1000) not null comment '留言',
+    primary key (UPD_TIME, USER_ID)
+    -- foreign key (USER_ID) references USER_INFO(USER_ID),
+    -- foreign key (ITEM_ID) references ITEM_INFO(ITEM_ID)
 ) engine=InnoDB default charset=utf8;
 
 create table Ashley.RECOMMEND (
@@ -68,3 +67,6 @@ create table Ashley.RECOMMEND (
     RECOMMEND float(2,1) comment '推薦度',
     primary key (ITEM_ID, USER_ID)
 ) engine=InnoDB default charset=utf8;
+
+insert into USER_INFO values ('BigAppentice', '大師兄', 'BigAppentice', '');
+insert into USER_INFO values ('Master', '師傅', 'Master', '');
