@@ -1,7 +1,7 @@
 create table Ashley.AUTHOR_INFO (
 	AUTHOR_ID varchar(6) not null comment '作者ID',
     AUTHOR_NAME nvarchar(30) not null comment '作者名稱',
-    DESCRIPTION nvarchar(500) not null comment '作者介紹',
+    DESCRIPTION nvarchar(500) comment '作者介紹',
     UPD_ID varchar(20) comment '更新人員',
     UPD_TIME timestamp comment '更新時間',
     primary key (AUTHOR_ID)
@@ -15,8 +15,7 @@ create table Ashley.TAG_INFO (
 
 create table Ashley.CATEGORY_INFO (
 	CATEGORY_ID varchar(6) not null comment '分類ID',
-    MAIN_NAME nvarchar(20) not null comment '分類名稱',
-    SUB_NAME nvarchar(20) comment '次分類名稱',
+    NAME nvarchar(20) not null comment '分類名稱',
     primary key (CATEGORY_ID)
 ) engine=InnoDB default charset=utf8;
 
@@ -46,9 +45,6 @@ create table Ashley.ITEM_INFO (
     UPD_ID varchar(20) comment '更新人員',
     UPD_TIME timestamp comment '更新時間', 
     primary key (ITEM_ID, TAG)
-    -- foreign key (AUTHOR_ID) references AUTHOR_INFO(AUTHOR_ID),
-    -- foreign key (TYPE) references TYPE_INFO(TYPE_ID),
-    -- foreign key (CATEGORY) references CATEGORY_INFO(CATEGORY_ID)
 ) engine=InnoDB default charset=utf8;
 
 create table Ashley.ITEM_COMMENT (
@@ -57,8 +53,12 @@ create table Ashley.ITEM_COMMENT (
     ITEM_ID varchar(12) not null comment '書籍ID',
     COMMENTS nvarchar(1000) not null comment '留言',
     primary key (UPD_TIME, USER_ID)
-    -- foreign key (USER_ID) references USER_INFO(USER_ID),
-    -- foreign key (ITEM_ID) references ITEM_INFO(ITEM_ID)
+) engine=InnoDB default charset=utf8;
+
+create table Ashley.ITEM_TAG (
+	ITEM_ID varchar(12) not null comment '物件ID',
+    TAG_ID varchar(6) not null comment '標籤ID',
+    primary key (ITEM_ID, TAG_ID)
 ) engine=InnoDB default charset=utf8;
 
 create table Ashley.RECOMMEND (
