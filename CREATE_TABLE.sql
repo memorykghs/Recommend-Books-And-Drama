@@ -49,7 +49,7 @@ create table Ashley.ITEM_INFO (
 
 create table Ashley.ITEM_COMMENT (
 	UPD_TIME timestamp not null comment '更新時間',
-    USER_ID  nvarchar(50) not null comment '使用者ID',
+    UPD_ID  nvarchar(50) not null comment '更新者ID',
     ITEM_ID varchar(12) not null comment '書籍ID',
     COMMENTS nvarchar(1000) not null comment '留言',
     primary key (UPD_TIME, USER_ID)
