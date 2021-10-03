@@ -1,18 +1,25 @@
 package com.team.rbad.dto;
 
+import java.io.Serializable;
 import java.util.Set;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Data;
+
 /**
  * RbadInsIt001Tranrs 新增作品DTO
  * @author memorykghs
  */
-public class RBADINSIT001Tranrq {
-	
+@Data
+public class INSITEMT001Tranrq implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	/** 封面圖片 */
 //	@JsonProperty("ItemName")
 //	@NotBlank
@@ -24,7 +31,7 @@ public class RBADINSIT001Tranrq {
 	@NotBlank
 	@Size(max = 100, message = "ItemName長度不可超過100")
 	private String itemName;
-	
+
 	/** 作者ID */
 	@JsonProperty("AuthorId")
 	@Size(max = 8, message = "AuthorId長度不可超過8")
@@ -50,7 +57,8 @@ public class RBADINSIT001Tranrq {
 
 	/** 標籤 */
 	@JsonProperty("TagSet")
-	private Set<RBADINSIT001TranrqTagInfo> tagSet;
+	@Valid
+	private Set<INSITEMT001TranrqTagInfo> tagSet;
 
 	/** 作品描述 */
 	@JsonProperty("Description")
