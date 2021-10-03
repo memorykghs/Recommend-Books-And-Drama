@@ -52,7 +52,7 @@ create table Ashley.ITEM_COMMENT (
     UPD_ID  nvarchar(50) not null comment '更新者ID',
     ITEM_ID varchar(12) not null comment '書籍ID',
     COMMENTS nvarchar(1000) not null comment '留言',
-    primary key (UPD_TIME, USER_ID)
+    primary key (UPD_TIME, UPD_ID)
 ) engine=InnoDB default charset=utf8;
 
 create table Ashley.ITEM_TAG (
