@@ -11,6 +11,6 @@ import com.team.rbad.entity.CategoryInfo;
 public interface CategoryInfoRepo extends JpaRepository<CategoryInfo, String> {
 
     /** 依類別名稱查詢 */
-    Optional<CategoryInfo> findBySubName(String category);
+    Optional<CategoryInfo> findByName(String category);
 
 }

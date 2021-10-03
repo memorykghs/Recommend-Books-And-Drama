@@ -1,7 +1,6 @@
 package com.team.rbad.base;
 
 import java.io.Serializable;
-import java.security.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,7 +17,7 @@ public class TranResponse<T> implements Serializable {
 
 	/** 交易時間 */
 	@JsonProperty("TranTime")
-	private Timestamp tranTime;
+	private String tranTime;
 
 	/** 交易結果代碼 */
 	@JsonProperty("ReturnCode")

@@ -16,15 +16,11 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "BOOK_COMMENT")
+@Table(name = "ITEM_COMMENT")
 @IdClass(value = ItemCommentPK.class)
 public class ItemComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ITEM_ID", referencedColumnName = "ITEM_ID")
-    private ItemInfo itemInfo;
 
     @Id
     @Column(name = "UPD_TIME")
@@ -33,6 +29,9 @@ public class ItemComment implements Serializable {
     @Id
     @Column(name = "UPD_ID")
     private String updId;
+    
+    @Column(name = "ITEM_ID")
+    private String itemId;
 
     @Column(name = "COMMENTS")
     private String comments;

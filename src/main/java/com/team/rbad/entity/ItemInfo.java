@@ -9,64 +9,59 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.team.rbad.util.ItemIdSeqGenerator;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+/**
+ * 作品資訊 Entity
+ * @author memorykghs
+ */
 @Data
 @Entity
-@Table(name = "BOOK_INFO")
+@Table(name = "ITEM_INFO")
 public class ItemInfo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemInfo")
-    @JsonIgnore
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<ItemComment> bookComments;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemInfo")
+	@JsonIgnore
+	@ToString.Exclude
+	@EqualsAndHashCode.Exclude
+	private Set<ItemTag> itemTagSet;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ITEM_SEQ")
-    @GenericGenerator(name = "ITEM_SEQ", strategy = "com.team.rbad.util.ItemIdSeqGenerator", parameters = {
-            @Parameter(name = ItemIdSeqGenerator.INCREMENT_PARAM, value = "1"),
-            @Parameter(name = ItemIdSeqGenerator.VALUE_PREFIX_PARAMETER, value = "I"),
-            @Parameter(name = ItemIdSeqGenerator.NUMBER_FORMAT_PARAMETER, value = "%03d") })
-    @Column(name = "ITEM_ID")
-    private String itemId;
+	@Id
+	@GeneratedValue(generator = "custom_generator")
+	@GenericGenerator(name = "custom_generator", strategy = "spring.batch.springBatchPractice.util.ItemIdentifierGenerator")
+	@Column(name = "ITEM_ID")
+	private String itemId;
 
-    @Column(name = "AUTHOR_ID")
-    private String authorId;
-    
-    @Column(name = "TYPE")
-    private String type;
+	@Column(name = "ITEM_NAME")
+	private String itemName;
 
-    @Column(name = "CATEGORY")
-    private String category;
+	@Column(name = "AUTHOR_ID")
+	private String authorId;
 
-    @Column(name = "TAG")
-    private String tag;
+	@Column(name = "TYPE")
+	private String type;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
+	@Column(name = "CATEGORY")
+	private String category;
 
-    @Column(name = "RECOMMEND")
-    private float recommend;
+	@Column(name = "DESCRIPTION")
+	private String description;
 
-    @Column(name = "UPD_ID")
-    private String updId;
+	@Column(name = "UPD_ID")
+	private String updId;
 
-    @Column(name = "UPD_TIME")
-    private Timestamp updTime;
+	@Column(name = "UPD_TIME")
+	private Timestamp updTime;
 }

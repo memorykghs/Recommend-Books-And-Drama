@@ -1,5 +1,6 @@
 package com.team.rbad.dto;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.validation.constraints.Size;
@@ -13,6 +14,8 @@ import lombok.Data;
  * @author memorykghs
  */
 @Data
-public class RBADINSIT001Tranrs {
+public class INSITEMT001Tranrs implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 }
