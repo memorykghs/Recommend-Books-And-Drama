@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team.rbad.base.TranRequest;
@@ -26,6 +27,7 @@ import com.team.rbad.util.TranResponseFactory;
  * RBADINSIT001 新增作品
  * @author memorykghs
  */
+@Service
 public class INSITEMT001SvcImpl implements INSITEMT001Svc {
 
 	/** ItemInfoRepo */

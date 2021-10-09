@@ -1,4 +1,4 @@
-package com.team.rbad.util;
+package com.team.rbad.util.identifier;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
