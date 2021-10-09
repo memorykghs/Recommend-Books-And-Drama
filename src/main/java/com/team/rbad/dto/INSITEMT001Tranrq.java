@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
- * RbadInsIt001Tranrs 新增作品DTO
+ * 新增作品 下行
  * @author memorykghs
  */
 @Data

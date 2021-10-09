@@ -21,47 +21,43 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-/**
- * 作品資訊 Entity
- * @author memorykghs
- */
 @Data
 @Entity
 @Table(name = "ITEM_INFO")
 public class ItemInfo implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemInfo")
-	@JsonIgnore
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
-	private Set<ItemTag> itemTagSet;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemInfo")
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<ItemTag> itemTagSet;
 
-	@Id
-	@GeneratedValue(generator = "custom_generator")
-	@GenericGenerator(name = "custom_generator", strategy = "spring.batch.springBatchPractice.util.ItemIdentifierGenerator")
-	@Column(name = "ITEM_ID")
-	private String itemId;
+    @Id
+    @GeneratedValue(generator = "custom_generator")
+    @GenericGenerator(name = "custom_generator", strategy = "spring.batch.springBatchPractice.util.ItemIdentifierGenerator")
+    @Column(name = "ITEM_ID")
+    private String itemId;
+    
+    @Column(name = "ITEM_NAME")
+    private String itemName;
 
-	@Column(name = "ITEM_NAME")
-	private String itemName;
+    @Column(name = "AUTHOR_ID")
+    private String authorId;
+    
+    @Column(name = "TYPE")
+    private String type;
 
-	@Column(name = "AUTHOR_ID")
-	private String authorId;
+    @Column(name = "CATEGORY")
+    private String category;
 
-	@Column(name = "TYPE")
-	private String type;
+    @Column(name = "DESCRIPTION")
+    private String description;
 
-	@Column(name = "CATEGORY")
-	private String category;
+    @Column(name = "UPD_ID")
+    private String updId;
 
-	@Column(name = "DESCRIPTION")
-	private String description;
-
-	@Column(name = "UPD_ID")
-	private String updId;
-
-	@Column(name = "UPD_TIME")
-	private Timestamp updTime;
+    @Column(name = "UPD_TIME")
+    private Timestamp updTime;
 }
