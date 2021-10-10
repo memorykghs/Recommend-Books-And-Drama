@@ -36,7 +36,7 @@ public class ItemInfo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "custom_generator")
-    @GenericGenerator(name = "custom_generator", strategy = "spring.batch.springBatchPractice.util.ItemIdentifierGenerator")
+    @GenericGenerator(name = "custom_generator", strategy = "com.team.rbad.util.identifier.ItemIdentifierGenerator")
     @Column(name = "ITEM_ID")
     private String itemId;
     

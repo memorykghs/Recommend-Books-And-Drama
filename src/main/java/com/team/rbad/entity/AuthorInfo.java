@@ -22,7 +22,7 @@ public class AuthorInfo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "author_generator")
-    @GenericGenerator(name = "author_generator", strategy = "spring.batch.springBatchPractice.util.AuthorIdentifierGenerator")
+    @GenericGenerator(name = "author_generator", strategy = "com.team.rbad.util.identifier.AuthorIdentifierGenerator")
     @Column(name = "AUTHOR_ID")
     private String authorId;
 

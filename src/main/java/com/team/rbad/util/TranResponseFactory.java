@@ -16,7 +16,7 @@ import com.team.rbad.enums.ReturnCode;
 public class TranResponseFactory {
 
 	/** DateTimeFormat */
-	private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyyMMddHHmmsss");
+	private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
 	/**
 	 * 產生成功 Response
@@ -29,8 +29,8 @@ public class TranResponseFactory {
 
 		TranResponse<T> resp = new TranResponse<>();
 		resp.setTranTime(dateTimeFormat.format(time));
-		resp.setReturnCode(ReturnCode.C001.getCode());
-		resp.setReturnMsg(ReturnCode.C001.getMessage());
+		resp.setReturnCode(ReturnCode.C000.getCode());
+		resp.setReturnMsg(ReturnCode.C000.getMessage());
 		resp.setRespData(respData);
 		return resp;
 	}

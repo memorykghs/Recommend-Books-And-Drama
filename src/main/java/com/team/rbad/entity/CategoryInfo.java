@@ -21,7 +21,7 @@ public class CategoryInfo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "cat_generator")
-    @GenericGenerator(name = "cat_generator", strategy = "spring.batch.springBatchPractice.util.CategoryIdentifierGenerator")
+    @GenericGenerator(name = "cat_generator", strategy = "com.team.rbad.util.identifier.CategoryIdentifierGenerator")
     @Column(name = "CATEGORY_ID")
     private String categoryId;
 
