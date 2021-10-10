@@ -21,7 +21,7 @@ public class TypeInfo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "TYPE_SEQ")
-    @GenericGenerator(name = "TYPE_SEQ", strategy = "spring.batch.springBatchPractice.util.TypeIdentifierGenerator")
+    @GenericGenerator(name = "TYPE_SEQ", strategy = "com.team.rbad.util.identifier.TypeIdentifierGenerator")
     @Column(name = "TYPE_ID")
     private String typeId;
 

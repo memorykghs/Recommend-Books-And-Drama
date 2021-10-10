@@ -21,7 +21,7 @@ public class TagInfo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "tag_generator")
-    @GenericGenerator(name = "tag_generator", strategy = "spring.batch.springBatchPractice.util.TagIdentifierGenerator")
+    @GenericGenerator(name = "tag_generator", strategy = "com.team.rbad.util.identifier.TagIdentifierGenerator")
     @Column(name = "TAG_ID")
     private String tagId;
 
