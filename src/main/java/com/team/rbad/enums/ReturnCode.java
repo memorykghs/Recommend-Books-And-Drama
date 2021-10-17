@@ -1,9 +1,12 @@
 package com.team.rbad.enums;
 
+import lombok.Getter;
+
 /**
  * Return Code
  * @author memorykghs
  */
+@Getter
 public enum ReturnCode {
 
 	C000("0000", "交易成功"),
@@ -19,12 +22,4 @@ public enum ReturnCode {
 	private String code;
 
 	private String message;
-
-	public String getCode() {
-		return this.code;
-	}
-
-	public String getMessage() {
-		return this.message;
-	}
 }
