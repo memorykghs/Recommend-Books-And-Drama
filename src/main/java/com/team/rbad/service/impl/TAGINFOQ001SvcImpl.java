@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team.rbad.base.TranRequest;
@@ -25,6 +26,7 @@ import com.team.rbad.util.TranResponseFactory;
  * @author memorykghs
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class TAGINFOQ001SvcImpl implements TAGINFOQ001Svc {
 
 	@Autowired
@@ -47,7 +49,7 @@ public class TAGINFOQ001SvcImpl implements TAGINFOQ001Svc {
 			tagInfoSet.add(mapper.convertValue(tagInfo, TAGINFOQ001TranrsTagInfo.class));
 
 		} else {
-			tagInfoSet = tagInfoRepo.findAllByDistinct().stream()
+			tagInfoSet = tagInfoRepo.findDistinctTagInfo().stream()
 					.map(tagInfo -> mapper.convertValue(tagInfo, TAGINFOQ001TranrsTagInfo.class))
 					.collect(Collectors.toSet());
 		}

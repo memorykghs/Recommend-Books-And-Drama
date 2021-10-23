@@ -13,6 +13,7 @@ import org.hibernate.id.IdentifierGenerator;
 
 /**
  * 自訂 CategoryInfo 序號產生
+ * 
  * @author memorykghs
  */
 public class TagIdentifierGenerator implements IdentifierGenerator {
@@ -25,11 +26,13 @@ public class TagIdentifierGenerator implements IdentifierGenerator {
 	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
 
 		Connection connection = session.connection();
+
 		if (idValue == 0) {
 			try {
 				PreparedStatement statement = connection
 						.prepareStatement("select count('TAG_SEQ') as TAG_ID from Ashley.all_sequences");
 				ResultSet rs = statement.executeQuery();
+
 				if (rs.next()) {
 					idValue = rs.getRow() + 1;
 				}
@@ -37,14 +40,14 @@ public class TagIdentifierGenerator implements IdentifierGenerator {
 				e.printStackTrace();
 				return null;
 			}
-		}else {
+		} else {
 			idValue++;
 		}
 
 		String seq = StringUtils.leftPad(String.valueOf(idValue), 5, "0");
 		String genId = valuePrefix + seq;
+		System.out.println("Generated tag Id: " + genId);
 
-		System.out.println("Generated Stock Code: " + genId);
 		return genId;
 
 	}

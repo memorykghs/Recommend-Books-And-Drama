@@ -13,35 +13,43 @@ import org.hibernate.id.IdentifierGenerator;
 
 /**
  * 自訂 CategoryInfo 序號產生
+ * 
  * @author memorykghs
  */
 public class AuthorIdentifierGenerator implements IdentifierGenerator {
 
 	private String valuePrefix = "A";
 
+	private static int idValue;
+
 	@Override
 	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
 
 		Connection connection = session.connection();
 
-		try {
-			PreparedStatement statement = connection
-					.prepareStatement("select count('AUTH_SEQ') as AUTHOR_ID from Ashley.all_sequences");
-			ResultSet rs = statement.executeQuery();
+		if (idValue == 0) {
+			try {
 
-			if (rs.next()) {
+				PreparedStatement statement = connection
+						.prepareStatement("select count('AUTH_SEQ') as AUTHOR_ID from Ashley.all_sequences");
+				ResultSet rs = statement.executeQuery();
 
-				int id = rs.getInt(1) + 1;
-				String seq = StringUtils.leftPad(String.valueOf(id), 5, "0");
-				String genId = valuePrefix + seq;
-
-				System.out.println("Generated Stock Code: " + genId);
-				return genId;
+				if (rs.next()) {
+					idValue = rs.getRow() + 1;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} else {
+			idValue++;
 		}
-		return null;
+
+		String seq = StringUtils.leftPad(String.valueOf(idValue), 5, "0");
+		String genId = valuePrefix + seq;
+		System.out.println("Generated Author Id: " + genId);
+
+		return genId;
 	}
 
 }
