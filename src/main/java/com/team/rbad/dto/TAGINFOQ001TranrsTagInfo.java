@@ -20,7 +20,7 @@ public class TAGINFOQ001TranrsTagInfo implements Serializable{
 	private String tagId;
 	
 	/** 標籤名稱 */
-	@JsonProperty("TagName")
-	private String tagName;
+	@JsonProperty("Name")
+	private String name;
 
 }

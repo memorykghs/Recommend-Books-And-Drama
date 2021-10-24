@@ -3,9 +3,13 @@ spring:
     active: local
   datasource: 
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: 
+    url: jdbc:mysql://localhost:3306/Ashley
     username: 
     password: 
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+      connection-timeout: 30000
   jpa:
     hibernate:
       ddl-auto: update

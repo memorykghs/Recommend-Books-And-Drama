@@ -49,7 +49,7 @@ public class TAGINFOQ001SvcImpl implements TAGINFOQ001Svc {
 			tagInfoSet.add(mapper.convertValue(tagInfo, TAGINFOQ001TranrsTagInfo.class));
 
 		} else {
-			tagInfoSet = tagInfoRepo.findDistinctTagInfo().stream()
+			tagInfoSet = tagInfoRepo.findAll().stream()
 					.map(tagInfo -> mapper.convertValue(tagInfo, TAGINFOQ001TranrsTagInfo.class))
 					.collect(Collectors.toSet());
 		}

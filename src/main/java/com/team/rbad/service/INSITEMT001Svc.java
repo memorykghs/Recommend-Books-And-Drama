@@ -4,6 +4,7 @@ import com.team.rbad.base.TranRequest;
 import com.team.rbad.base.TranResponse;
 import com.team.rbad.dto.INSITEMT001Tranrq;
 import com.team.rbad.dto.INSITEMT001Tranrs;
+import com.team.rbad.exception.ErrorInputException;
 
 /**
  * RBADINSIT001 新增作品
@@ -16,5 +17,5 @@ public interface INSITEMT001Svc {
 	 * @param req
 	 * @return
 	 */
-	TranResponse<INSITEMT001Tranrs> insertItem(TranRequest<INSITEMT001Tranrq> req);
+	TranResponse<INSITEMT001Tranrs> insertItem(TranRequest<INSITEMT001Tranrq> req) throws ErrorInputException;
 }

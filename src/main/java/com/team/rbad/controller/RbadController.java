@@ -15,6 +15,7 @@ import com.team.rbad.dto.INSITEMT001Tranrs;
 import com.team.rbad.dto.TAGINFOQ001Tranrq;
 import com.team.rbad.dto.TAGINFOQ001Tranrs;
 import com.team.rbad.exception.DataNotFoundException;
+import com.team.rbad.exception.ErrorInputException;
 import com.team.rbad.service.CATINFOQ001Svc;
 import com.team.rbad.service.INSITEMT001Svc;
 import com.team.rbad.service.TAGINFOQ001Svc;
@@ -38,7 +39,7 @@ public class RbadController {
 
 	@ApiOperation(value = "新增作品")
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public TranResponse<INSITEMT001Tranrs> insert(@RequestBody TranRequest<INSITEMT001Tranrq> req) {
+	public TranResponse<INSITEMT001Tranrs> insert(@RequestBody TranRequest<INSITEMT001Tranrq> req) throws ErrorInputException {
 		return theRBADINSIT001Svc.insertItem(req);
 	}
 	
@@ -50,7 +51,7 @@ public class RbadController {
 	
 	@ApiOperation(value = "查詢作品類型")
 	@RequestMapping(value = "/query/category", method = RequestMethod.POST)
-	public TranResponse<CATINFOQ001Tranrs> queryCategory(TranRequest<CATINFOQ001Tranrq> req) throws DataNotFoundException {
+	public TranResponse<CATINFOQ001Tranrs> queryCategory(@RequestBody TranRequest<CATINFOQ001Tranrq> req) throws DataNotFoundException {
 		return theCATINFOQ001Svc.queryCategory(req);
 	}
 }
