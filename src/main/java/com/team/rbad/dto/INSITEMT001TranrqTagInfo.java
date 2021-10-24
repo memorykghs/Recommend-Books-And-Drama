@@ -24,7 +24,6 @@ public class INSITEMT001TranrqTagInfo implements Serializable {
 	private String tagId;
 
 	/** 標籤名稱 */
-	@NotBlank
 	@Size(max = 50, message = "TagName長度不可超過50")
 	@JsonProperty("TagName")
 	private String tagName;

@@ -1,5 +1,6 @@
 package com.team.rbad.service.impl;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import com.team.rbad.entity.AuthorInfo;
 import com.team.rbad.entity.ItemInfo;
 import com.team.rbad.entity.ItemTag;
 import com.team.rbad.entity.TagInfo;
+import com.team.rbad.exception.ErrorInputException;
 import com.team.rbad.repository.AuthorInfoRepo;
 import com.team.rbad.repository.ItemInfoRepo;
 import com.team.rbad.repository.TagInfoRepo;
@@ -54,40 +56,55 @@ public class INSITEMT001SvcImpl implements INSITEMT001Svc {
 	private ObjectMapper mapper;
 
 	@Override
-	public TranResponse<INSITEMT001Tranrs> insertItem(TranRequest<INSITEMT001Tranrq> req) {
+	public TranResponse<INSITEMT001Tranrs> insertItem(TranRequest<INSITEMT001Tranrq> req) throws ErrorInputException {
 
 		INSITEMT001Tranrq tranrq = req.getReqData();
 
 		// 處理作者資訊
 		String authorId = handleAuthorInfo(tranrq);
 
+		// 轉換作品資料
 		ItemInfo itemInfo = mapper.convertValue(tranrq, ItemInfo.class);
 
 		// 處理 Tag 資訊
 		Set<ItemTag> itemTagSet = new HashSet<>();
 
 		Set<INSITEMT001TranrqTagInfo> tagSet = tranrq.getTagSet();
-		tagSet.stream().forEach(tag -> {
 
-			String tagId = tag.getTagId();
-			if (StringUtils.isBlank(tagId)) {
+		if (tagSet != null && !tagSet.isEmpty()) {
+			for (INSITEMT001TranrqTagInfo tag : tagSet) {
 
-				TagInfo tagInfo = new TagInfo();
-				tagInfo.setName(tag.getTagName());
-				tagInfoRepo.saveAndFlush(tagInfo);
+				String tagName = tag.getTagName();
+				if (StringUtils.isBlank(tagName)) {
+					throw new ErrorInputException("TagName不得為空");
+				}
 
-				tagId = tagInfo.getTagId();
+				String tagId = tag.getTagId();
+				if (StringUtils.isBlank(tagId)) {
+
+					// 標籤名稱不存在才新增
+					TagInfo tagInfo = tagInfoRepo.findByName(tag.getTagName()).orElse(new TagInfo());
+					if (StringUtils.isBlank(tagInfo.getTagId())) {
+						tagInfo.setName(tag.getTagName());
+						tagInfoRepo.saveAndFlush(tagInfo);
+					}
+
+					tagId = tagInfo.getTagId();
+				}
+
+				ItemTag itemTag = new ItemTag();
+				itemTag.setTagId(tagId);
+				itemTag.setItemInfo(itemInfo);
+				itemTagSet.add(itemTag);
 			}
 
-			ItemTag itemTag = new ItemTag();
-			itemTag.setTagId(tagId);
-			itemTag.setItemInfo(itemInfo);
-			itemTagSet.add(itemTag);
-		});
+			itemInfo.setItemTagSet(itemTagSet);
+		}
 
 		// 處理作品資訊
 		itemInfo.setAuthorId(authorId);
-		itemInfo.setItemTagSet(itemTagSet);
+		itemInfo.setUpdId(tranrq.getUserId());
+		itemInfo.setUpdTime(new Timestamp(System.currentTimeMillis()));
 		itemInfoRepo.saveAndFlush(itemInfo);
 
 		return tranResponseFactory.genSucessResponse(null);

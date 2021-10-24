@@ -23,6 +23,7 @@ import com.team.rbad.util.TranResponseFactory;
 
 /**
  * 查詢作品類型
+ * 
  * @author memorykghs
  */
 @Service
@@ -56,8 +57,8 @@ public class CATINFOQ001SvcImpl implements CATINFOQ001Svc {
 	public CATINFOQ001Tranrs queryCategory(CATINFOQ001Tranrq tranrq) throws DataNotFoundException {
 
 		String categoryId = tranrq.getCategoryId();
-		String name = tranrq.getName();
-		
+		String name = tranrq.getCategoryName();
+
 		List<CATINFOQ001TranrsCategoryInfo> rtnList = new ArrayList<>();
 
 		if (StringUtils.isNotBlank(categoryId) && StringUtils.isBlank(name)) {
@@ -79,11 +80,9 @@ public class CATINFOQ001SvcImpl implements CATINFOQ001Svc {
 					.map(categoryInfo -> mapper.convertValue(categoryInfo, CATINFOQ001TranrsCategoryInfo.class))
 					.collect(Collectors.toList());
 		}
-		
+
 		CATINFOQ001Tranrs tranrs = new CATINFOQ001Tranrs();
 		tranrs.setCategorySet(rtnList);
-		return new CATINFOQ001Tranrs();
-
+		return tranrs;
 	}
-
 }

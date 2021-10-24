@@ -45,8 +45,9 @@ public class ItemIdentifierGenerator implements IdentifierGenerator {
 			idValue++;
 		}
 		
-		String seq = StringUtils.leftPad(String.valueOf(idValue), 5, "0");
-		String genId = valuePrefix + seq;
+		String seq = StringUtils.leftPad(String.valueOf(idValue), 3, "0");
+		String today = DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now()).toString();
+		String genId = valuePrefix + today + seq;
 		System.out.println("Generated item Id: " + genId);
 
 		return genId;
