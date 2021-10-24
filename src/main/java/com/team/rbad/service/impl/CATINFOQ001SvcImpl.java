@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team.rbad.base.TranRequest;
@@ -23,6 +25,8 @@ import com.team.rbad.util.TranResponseFactory;
  * 查詢作品類型
  * @author memorykghs
  */
+@Service
+@Transactional(rollbackFor = Exception.class)
 public class CATINFOQ001SvcImpl implements CATINFOQ001Svc {
 
 	@Autowired

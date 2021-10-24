@@ -15,36 +15,41 @@ import org.hibernate.id.IdentifierGenerator;
 
 /**
  * 自訂 ItemInfo 序號產生
+ * 
  * @author memorykghs
  */
 public class ItemIdentifierGenerator implements IdentifierGenerator {
 
 	private String valuePrefix = "I";
 
+	private static int idValue;
+
 	@Override
 	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
 
 		Connection connection = session.connection();
 
-		try {
-			PreparedStatement statement = connection
-					.prepareStatement("select count('ITEM_SEQ') as ITEM_ID from Ashley.all_sequences");
-			ResultSet rs = statement.executeQuery();
+		if (idValue == 0) {
+			try {
+				PreparedStatement statement = connection
+						.prepareStatement("select count('ITEM_SEQ') as ITEM_ID from Ashley.all_sequences");
+				ResultSet rs = statement.executeQuery();
 
-			if (rs.next()) {
-
-				int id = rs.getInt(1) + 1;
-				String seq = StringUtils.leftPad(String.valueOf(id), 3, "0");
-				String today = DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now()).toString();
-				String genId = valuePrefix + today + seq;
-
-				System.out.println("Generated Stock Code: " + genId);
-				return genId;
+				if (rs.next()) {
+					idValue = rs.getRow() + 1;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} else {
+			idValue++;
 		}
-		return null;
+		
+		String seq = StringUtils.leftPad(String.valueOf(idValue), 5, "0");
+		String genId = valuePrefix + seq;
+		System.out.println("Generated item Id: " + genId);
+
+		return genId;
 	}
 
 }

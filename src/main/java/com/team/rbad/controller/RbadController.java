@@ -49,7 +49,7 @@ public class RbadController {
 	}
 	
 	@ApiOperation(value = "查詢作品類型")
-	@RequestMapping(value = "/query/tag", method = RequestMethod.POST)
+	@RequestMapping(value = "/query/category", method = RequestMethod.POST)
 	public TranResponse<CATINFOQ001Tranrs> queryCategory(TranRequest<CATINFOQ001Tranrq> req) throws DataNotFoundException {
 		return theCATINFOQ001Svc.queryCategory(req);
 	}
