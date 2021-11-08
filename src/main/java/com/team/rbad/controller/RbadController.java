@@ -14,6 +14,8 @@ import com.team.rbad.base.TranRequest;
 import com.team.rbad.base.TranResponse;
 import com.team.rbad.dto.CATINFOQ001Tranrq;
 import com.team.rbad.dto.CATINFOQ001Tranrs;
+import com.team.rbad.dto.HMITEMQ001Tranrq;
+import com.team.rbad.dto.HMITEMQ001Tranrs;
 import com.team.rbad.dto.INSITEMT001Tranrq;
 import com.team.rbad.dto.INSITEMT001Tranrs;
 import com.team.rbad.dto.SECHITQ001Tranrq;
@@ -26,6 +28,7 @@ import com.team.rbad.dto.TYPINFOQ001Tranrs;
 import com.team.rbad.exception.DataNotFoundException;
 import com.team.rbad.exception.ErrorInputException;
 import com.team.rbad.service.CATINFOQ001Svc;
+import com.team.rbad.service.HMITEMQ001Svc;
 import com.team.rbad.service.INSITEMT001Svc;
 import com.team.rbad.service.SECHITQ001Svc;
 import com.team.rbad.service.TAGINFOQ001Svc;
@@ -54,6 +57,9 @@ public class RbadController {
 
 	@Autowired
 	private TYPINFOQ001Svc theTYPINFOQ001Svc;
+	
+	@Autowired
+	private HMITEMQ001Svc theHMITEMQ001Svc;
 
 	@Autowired
 	private SECHITQ001Svc theSECHITQ001Svc;
@@ -94,6 +100,13 @@ public class RbadController {
 	public TranResponse<TYPINFOQ001Tranrs> queryType(@RequestBody TranRequest<TYPINFOQ001Tranrq> req)
 			throws DataNotFoundException {
 		return theTYPINFOQ001Svc.queryType(req);
+	}
+	
+	@ApiOperation(value = "查詢首頁最新書籍n筆")
+	@RequestMapping(value = "/query/hmNewstItem", method = RequestMethod.POST)
+	public TranResponse<HMITEMQ001Tranrs> queryHmNewstItem(@RequestBody TranRequest<HMITEMQ001Tranrq> req)
+			throws ErrorInputException {
+		return theHMITEMQ001Svc.queryHomeItemNewest(req);
 	}
 
 	@ApiOperation(value = "首頁查詢")

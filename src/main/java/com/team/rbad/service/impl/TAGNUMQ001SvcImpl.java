@@ -48,7 +48,7 @@ public class TAGNUMQ001SvcImpl implements TAGNUMQ001Svc {
 
 		Random random = new Random();
 		Set<TagInfo> querySet = new HashSet<TagInfo>();
-		while (querySet.size() < req.getReqData().getItemNumber()) {
+		while (querySet.size() < req.getReqData().getTagNumber()) {
 			int randomIndex = random.nextInt(tagInfoList.size());
 			querySet.add(tagInfoList.get(randomIndex));
 		}

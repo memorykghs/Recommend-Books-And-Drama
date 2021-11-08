@@ -9,16 +9,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
- * 查詢標籤 上行
+ * 首頁查詢ITEM_INFO 上行
  * @author paramecium
  */
 @Data
-public class TAGNUMQ001Tranrq implements Serializable {
+public class HMITEMQ001Tranrq implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	/** 想隨機拿的標籤數量 */
+	
+	/** 首頁想拿的ITEM數量 */
 	@Min(value = 1, message = "Can't be less then 1 Tag.")
-	@JsonProperty("TagNumber")
-	private int tagNumber ;
+	@JsonProperty("ItemNumber")
+	private int itemNumber ;
+
 }

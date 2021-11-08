@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.team.rbad.base.TranResponse;
 import com.team.rbad.enums.ReturnCode;
 import com.team.rbad.exception.DataNotFoundException;
+import com.team.rbad.exception.ErrorInputException;
 import com.team.rbad.util.TranResponseFactory;
 
 @RestControllerAdvice
@@ -19,5 +20,11 @@ public class WebExceptionHandler {
 	@ExceptionHandler(value = DataNotFoundException.class)
 	public <T> TranResponse<T> handleDataNotFoundException(){
 		return tranResponseFactory.genFailResponse(null, ReturnCode.C002);
+	}
+	
+	/** ErrorInputException */
+	@ExceptionHandler(value = ErrorInputException.class)
+	public <T> TranResponse<T> handleErrorInputException(ErrorInputException e){
+		return tranResponseFactory.genFailResponseWithMsg(null, ReturnCode.C001, e);
 	}
 }
